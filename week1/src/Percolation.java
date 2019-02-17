@@ -15,7 +15,6 @@ public class Percolation {
     private int n;
 
 
-
     public Percolation(int inputN) {
         n = inputN;
         if (n <= 0) {
@@ -29,14 +28,15 @@ public class Percolation {
     }
 
     public boolean isOpen(int row, int col) {
-        if (row <= 0 || col <= 0) {
+        if (row <= 0 || col <= 0 || row > n || col > n) {
             throw new IllegalArgumentException();
         }
         return openGrid[row - 1][col - 1];
     }
 
-    private int getIndex(int i, int j){
-        return n * (i - 1 ) + j;
+    private int getIndex(int i, int j) {
+
+        return n * (i - 1) + j;
     }
 
     public void open(int row, int col) {
@@ -80,14 +80,14 @@ public class Percolation {
             throw new IllegalArgumentException();
         }
 
-        return uf.connected(getIndex(row, col), top);
+        return uf.connected(getIndex(row - 1, col - 1), top);
 
     }
 
     public int numberOfOpenSites() {
         int sum = 0;
 
-        for (int i = 0; i < n; i++ ) {
+        for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (openGrid[i][j]) {
                     sum++;

@@ -5,15 +5,18 @@ public class PercolationStats {
     private double[] thresholds;
     private int trials;
     private int n;
+    private double mean;
+    private double sd;
 
     public PercolationStats(int inputN, int inputTrials) {
+        if (n <= 0 || trials <= 0) {
+            throw new IllegalArgumentException();
+        }
         n = inputN;
         trials = inputTrials;
         thresholds = new double[trials];
 
-        if (n <= 0 || trials <= 0) {
-            throw new IllegalArgumentException();
-        }
+
 
         for (int i = 0; i < trials; i++ ){
             Percolation p = new Percolation(n);
@@ -31,23 +34,21 @@ public class PercolationStats {
     }
 
     public double mean() {
-        double sum = 0;
-        for (double t: thresholds){
-            sum = sum + t;
-        }
-        return sum/trials;
+        mean = StdStats.mean(thresholds);
+        return mean;
     }
 
     public double stddev() {
-        return StdStats.stddev(thresholds);
+        sd = StdStats.stddev(thresholds);
+        return sd;
     }
 
     public double confidenceLo() {
-        return mean() - (1.96 * stddev())/Math.sqrt((double) trials);
+        return mean - (1.96 * sd)/Math.sqrt((double) trials);
     }
 
     public double confidenceHi() {
-        return mean() + (1.96 * stddev())/Math.sqrt((double) trials);
+        return mean + (1.96 * sd)/Math.sqrt((double) trials);
     }
 
     public static void main(String[] args) {
