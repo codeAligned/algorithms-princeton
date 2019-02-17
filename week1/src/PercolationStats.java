@@ -1,3 +1,12 @@
+/**
+ * The PercolationStats class implements a statistical testing suite for the Percolation class.
+ *
+ * Main method provided: PercolationStats n trials
+ *
+ * @author Tobias Leong
+ */
+
+
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
@@ -7,6 +16,8 @@ public class PercolationStats {
     private int n;
     private double mean;
     private double sd;
+    private double c = 1.96;
+
 
     public PercolationStats(int inputN, int inputTrials) {
         if (n <= 0 || trials <= 0) {
@@ -44,11 +55,13 @@ public class PercolationStats {
     }
 
     public double confidenceLo() {
+
         return mean - (1.96 * sd)/Math.sqrt((double) trials);
     }
 
     public double confidenceHi() {
-        return mean + (1.96 * sd)/Math.sqrt((double) trials);
+        return mean + (c * sd)/Math.sqrt((double) trials);
+
     }
 
     public static void main(String[] args) {
