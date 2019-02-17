@@ -1,6 +1,6 @@
 # Algorithms Part 1 by Stanford
 
-Course taught by Sedgewick.
+Course taught by Sedgewick ([link here](https://www.coursera.org/specializations/algorithms)).
 
 ## Files
 
