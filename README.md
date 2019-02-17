@@ -1,4 +1,4 @@
-# Algorithms Part 1 by Stanford
+# Algorithms Part 1 by Princeton
 
 Course taught by Sedgewick ([link here](https://www.coursera.org/specializations/algorithms)).
 
