@@ -80,7 +80,7 @@ public class Percolation {
             throw new IllegalArgumentException();
         }
 
-        return uf.connected(getIndex(row - 1, col - 1), top);
+        return uf.connected(getIndex(row ,col), top);
 
     }
 
