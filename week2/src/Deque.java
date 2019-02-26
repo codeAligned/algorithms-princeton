@@ -122,6 +122,7 @@ public class Deque<Item> implements Iterable<Item>{
             private Node current;
 
             private DequeIterator(){
+                // constructor so that we point BEFORE the first one, so that hasNext() and next() works well
                 current = new Node();
                 current.next = first;
             }
@@ -148,6 +149,14 @@ public class Deque<Item> implements Iterable<Item>{
         d.addFirst("james");
         d.addLast("sarah");
 
+        for (String s:d){
+            StdOut.println(s);
+        }
+
+        d.removeFirst();
+        d.removeLast();
+
+        StdOut.println("Second test...");
         for (String s:d){
             StdOut.println(s);
         }
