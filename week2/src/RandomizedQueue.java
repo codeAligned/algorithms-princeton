@@ -125,8 +125,9 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
         r.enqueue("to");
         r.enqueue("be");
         r.enqueue("or");
-        r.dequeue();
-        var x = r.sample();
+        String y = r.dequeue();
+        StdOut.println("Dequeue: " + y);
+        String x = r.sample();
 
         StdOut.println("Random sample: "+x);
 
