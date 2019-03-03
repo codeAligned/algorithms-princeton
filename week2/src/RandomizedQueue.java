@@ -1,9 +1,10 @@
+import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class RandomizedQueue<Item> implements Iterable<item>{
+public class RandomizedQueue<Item> implements Iterable<Item>{
     // use resizing array: 100% full to double
 
     private int N = 0;
@@ -24,7 +25,7 @@ public class RandomizedQueue<Item> implements Iterable<item>{
 
     public void enqueue(Item item) {
         if (item == null) {
-            throw new IllegalArgumentException("Enqueue called with null argument");
+            throw new IllegalArgumentException("Enqueue called with null argument.");
         }
         // double capacity if full
         if (N == s.length) {
@@ -34,22 +35,22 @@ public class RandomizedQueue<Item> implements Iterable<item>{
             }
             s = temp;
         }
-        N++;
         s[N] = item;
+        N++;
     }
 
     public Item dequeue() {
         if (isEmpty()) {
-            throw new NoSuchElementException("Dequeue called with empty RQ");
+            throw new NoSuchElementException("Dequeue called with empty RQ.");
         }
 
         // search for random values
-        int n = StdRandom.uniform(size);
-        value = s[n];
+        int n = StdRandom.uniform(N);
+        Item value = s[n];
 
-        // set the retrieved value to last value, and set last value to null
-        s[n] = s[N];
-        s[N] = null;
+        // set the retrieved index value to last value, and set last value to null
+        s[n] = s[N - 1];
+        s[N - 1] = null;
         N--;
 
         // resize if less than 25% full
@@ -66,12 +67,12 @@ public class RandomizedQueue<Item> implements Iterable<item>{
 
     public Item sample() {
         if(isEmpty()) {
-            throw new NoSuchElementException("Sample called with empty RQ");
+            throw new NoSuchElementException("Sample called with empty RQ.");
         }
 
         // search for random values
-        int n = StdRandom.uniform(size);
-        value = s[n];
+        int n = StdRandom.uniform(N);
+        Item value = s[n];
 
         return value;
 
@@ -83,21 +84,55 @@ public class RandomizedQueue<Item> implements Iterable<item>{
 
     private class RandomizedQueueIterator implements Iterator<Item> {
 
+        private Item[] copy;
+        private int copySize = N;
+
         private RandomizedQueueIterator() {
+            copy = (Item[]) new Object[copySize];
+            for (int i = 0; i < copySize; i++ ){
+                copy[i] = s[i];
+            }
 
         }
 
         public boolean hasNext() {
-            //
+            return copySize > 0;
         }
 
         public Item next() {
-            //
+            if (!hasNext()){ throw new IllegalArgumentException("next() called when no more next items.");}
+
+            // search for random values
+            int n = StdRandom.uniform(copySize);
+            Item value = copy[n];
+
+            // set the retrieved value to last value, and set last value to null
+            copy[n] = copy[copySize - 1];
+            copy[copySize - 1] = null;
+            copySize--;
+            return value;
         }
 
         public void remove() {
             throw new UnsupportedOperationException("Remove is not allowed.");
         }
 
+    }
+
+    public static void main(String[] args) {
+        RandomizedQueue<String> r = new RandomizedQueue<>();
+
+        r.enqueue("to");
+        r.enqueue("be");
+        r.enqueue("or");
+        r.dequeue();
+        var x = r.sample();
+
+        StdOut.println("Random sample: "+x);
+
+        StdOut.println("Enumerating...");
+        for (String s: r) {
+            StdOut.println(s);
+        }
     }
 }
