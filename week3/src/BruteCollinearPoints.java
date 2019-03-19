@@ -1,5 +1,8 @@
+import edu.princeton.cs.algs4.StdOut;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class BruteCollinearPoints {
 
@@ -7,7 +10,7 @@ public class BruteCollinearPoints {
 
 
     public BruteCollinearPoints(Point[] points) {
-        checkDuplicatedEntries(points);
+        duplicateCheck(points);
         ArrayList<LineSegment> found = new ArrayList<>();
 
         Point[] pointsCopy = Arrays.copyOf(points, points.length);
@@ -37,13 +40,15 @@ public class BruteCollinearPoints {
         return Arrays.copyOf(segments, numberOfSegments());
     }
 
-    private void checkDuplicatedEntries(Point[] points) {
+    private void duplicateCheck(Point[] points) {
         for (int i = 0; i < points.length - 1; i++) {
             for (int j = i + 1; j < points.length; j++) {
                 if (points[i].compareTo(points[j]) == 0) {
-                    throw new IllegalArgumentException("Duplicated entries in given points.");
+                    throw new IllegalArgumentException("duplicate entries");
                 }
             }
         }
     }
+
 }
+
