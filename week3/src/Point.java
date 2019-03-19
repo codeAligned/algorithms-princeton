@@ -150,6 +150,16 @@ public class Point implements Comparable<Point> {
         b = new Point(7,7);
         StdOut.println(a.slopeTo(b) == Double.NEGATIVE_INFINITY);
 
+        // test for simple case
+        a = new Point(1,2);
+        b = new Point(2,5);
+        c = new Point(4,3);
+
+        double aToB = a.slopeTo(b);
+        double aToC = a.slopeTo(c);
+        StdOut.println(aToB > aToC);
+
+
 
     }
 }
