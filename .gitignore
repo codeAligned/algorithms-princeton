@@ -2,3 +2,4 @@ test/src/*
 .idea/*
 *.zip
 workspace*
+.idea
